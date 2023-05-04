@@ -9,31 +9,43 @@
     />
   </ng-container> -->
   <ng-container contenido>
-    <div
-      *ngFor="let pelicula of peliculas; let index = index"
-      class="pelicula-contenedor"
-    >
-      <div>
-        <h2>
-          Pelicula {{ index + +1 }}: {{ pelicula.titulo | uppercase }}
-          <button style="margin-left: 1rem" (click)="removeMovie(index)">
-            Remove
-          </button>
-        </h2>
-      </div>
+    <div class="peliculas-contenedor">
+      <div
+        *ngFor="let pelicula of peliculas; let index = index"
+        class="pelicula-contenedor"
+      >
+        <a>
+          <img [src]="pelicula.poster" alt="Poster" />
+        </a>
+        <p>
+          <a>{{ pelicula.titulo }}</a>
+        </p>
+        <div>
+          <a mat-flat-button color="primary"> Editar </a>
+          <button mat-flat-button color="warn" type="button">Borrar</button>
+        </div>
+        <!-- <div>
+          <h2>
+            Pelicula {{ index + +1 }}: {{ pelicula.titulo | uppercase }}
+            <button style="margin-left: 1rem" (click)="removeMovie(index)">
+              Remove
+            </button>
+          </h2>
+        </div>
 
-      <div>
-        {{ pelicula.fechaLanzamiento | date : "dd-MMMM-yy" | lowercase }}
-      </div>
+        <div>
+          {{ pelicula.fechaLanzamiento | date : "dd-MMMM-yy" | lowercase }}
+        </div>
 
-      <div>
-        {{ pelicula.precioEntrada | currency }}
-      </div>
+        <div>
+          {{ pelicula.precioEntrada | currency }}
+        </div>
 
-      <div>
-        <app-rating (rated)="manejarRated($event)"></app-rating>
+        <div>
+          <app-rating (rated)="manejarRated($event)"></app-rating>
+        </div>
+        <br /> -->
       </div>
-      <br />
     </div>
   </ng-container>
 </app-listado-generico>
