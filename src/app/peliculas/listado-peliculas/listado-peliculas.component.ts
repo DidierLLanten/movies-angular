@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ListadoPeliculasComponent implements OnInit {
   constructor() {}
   @Input()
-  peliculas;
+  peliculas: any[];
 
   ngOnInit(): void {
     // setTimeout(() => {
@@ -40,5 +40,9 @@ export class ListadoPeliculasComponent implements OnInit {
     //     },
     //   ];
     // }, 3000);
+  }
+
+  removeMovie(indiceMovie: number) {
+    this.peliculas.splice(indiceMovie, 1);
   }
 }
