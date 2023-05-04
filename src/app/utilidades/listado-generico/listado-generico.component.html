@@ -1,0 +1,20 @@
+<p>listado-generico works!</p>
+
+<div *ngIf="!listado">
+  <span #cargando>
+    <ng-content select="[cargando]"></ng-content>
+  </span>
+  <span *ngIf="!cargando.innerHTML.trim()">
+    <img
+      src="https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca_w200.gif"
+    />
+  </span>
+</div>
+
+<ng-container *ngIf="listado?.length === 0">
+  <p>{{ listadoVacio }}</p>
+</ng-container>
+
+<ng-container>
+  <ng-content select="[contenido]"></ng-content>
+</ng-container>

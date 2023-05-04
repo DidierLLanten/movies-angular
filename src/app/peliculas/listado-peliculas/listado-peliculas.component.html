@@ -1,32 +1,33 @@
 <p>listado-peliculas works!</p>
-
-<div *ngIf="!peliculas">
-  <img
-    src="https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca_w200.gif"
-  />
-</div>
-
-<div *ngIf="peliculas?.length === 0">
-  <p>No hay peliculas para mostrar</p>
-</div>
-
-<div
-  *ngFor="let pelicula of peliculas; let index = index"
-  class="pelicula-contenedor"
+<app-listado-generico
+  [listado]="peliculas"
+  [listadoVacio]="'No hay peliculas para mostrar'"
 >
-  <div>
-    Pelicula {{ index + +1 }}: {{ pelicula.titulo | uppercase }}
-    <button style="margin-left: 1rem" (click)="removeMovie(index)">
-      Remove
-    </button>
-  </div>
+  <!-- <ng-container cargando>
+    <img
+      src="https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw700"
+    />
+  </ng-container> -->
+  <ng-container contenido>
+    <div
+      *ngFor="let pelicula of peliculas; let index = index"
+      class="pelicula-contenedor"
+    >
+      <div>
+        Pelicula {{ index + +1 }}: {{ pelicula.titulo | uppercase }}
+        <button style="margin-left: 1rem" (click)="removeMovie(index)">
+          Remove
+        </button>
+      </div>
 
-  <div>
-    {{ pelicula.fechaLanzamiento | date : "dd-MMMM-yy" | lowercase }}
-  </div>
+      <div>
+        {{ pelicula.fechaLanzamiento | date : "dd-MMMM-yy" | lowercase }}
+      </div>
 
-  <div>
-    {{ pelicula.precioEntrada | currency }}
-  </div>
-  <br />
-</div>
+      <div>
+        {{ pelicula.precioEntrada | currency }}
+      </div>
+      <br />
+    </div>
+  </ng-container>
+</app-listado-generico>
