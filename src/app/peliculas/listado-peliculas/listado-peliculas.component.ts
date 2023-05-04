@@ -45,4 +45,8 @@ export class ListadoPeliculasComponent implements OnInit {
   removeMovie(indiceMovie: number) {
     this.peliculas.splice(indiceMovie, 1);
   }
+
+  manejarRated(voto: number): void {
+    alert(voto);
+  }
 }

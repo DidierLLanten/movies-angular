@@ -14,10 +14,12 @@
       class="pelicula-contenedor"
     >
       <div>
-        Pelicula {{ index + +1 }}: {{ pelicula.titulo | uppercase }}
-        <button style="margin-left: 1rem" (click)="removeMovie(index)">
-          Remove
-        </button>
+        <h2>
+          Pelicula {{ index + +1 }}: {{ pelicula.titulo | uppercase }}
+          <button style="margin-left: 1rem" (click)="removeMovie(index)">
+            Remove
+          </button>
+        </h2>
       </div>
 
       <div>
@@ -26,6 +28,10 @@
 
       <div>
         {{ pelicula.precioEntrada | currency }}
+      </div>
+
+      <div>
+        <app-rating (rated)="manejarRated($event)"></app-rating>
       </div>
       <br />
     </div>
