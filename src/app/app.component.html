@@ -1,0 +1,37 @@
+<p>Hola mundo</p>
+
+<div>
+  {{ title }}
+</div>
+
+<div>La suma de 2 y 2 es: {{ 2 + 2 }}</div>
+
+<div>El doble de 3 es {{ duplicarNumero(3) }}</div>
+
+<h2>Datos de la Pelicula</h2>
+
+<div *ngIf="!peliculas">
+  <img
+    src="https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca_w200.gif"
+  />
+</div>
+
+<div *ngIf="peliculas?.length === 0">
+  <p>No hay peliculas para mostrar</p>
+</div>
+
+<div
+  *ngFor="let pelicula of peliculas; let index = index"
+  class="pelicula-contenedor"
+>
+  <div>Pelicula {{ index + +1 }}: {{ pelicula.titulo | uppercase }}</div>
+
+  <div>
+    {{ pelicula.fechaLanzamiento | date : "dd-MMMM-yy" | lowercase }}
+  </div>
+
+  <div>
+    {{ pelicula.precioEntrada | currency }}
+  </div>
+  <br />
+</div>
