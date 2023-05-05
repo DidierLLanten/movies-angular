@@ -16,10 +16,6 @@ import { EditarGeneroComponent } from './generos/editar-genero/editar-genero.com
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
 
-  { path: 'generos', component: IndiceGenerosComponent },
-  { path: 'generos/crear', component: CrearGeneroComponent },
-  { path: 'generos/editar/:id', component: EditarGeneroComponent },
-
   { path: 'actores', component: IndiceActoresComponent },
   { path: 'actores/crear', component: CrearActorComponent },
   { path: 'actores/editar/:id', component: EditarActorComponent },
@@ -27,9 +23,15 @@ const routes: Routes = [
   { path: 'cines', component: IndiceCinesComponent },
   { path: 'cines/crear', component: CrearCineComponent },
   { path: 'cines/editar/:id', component: EditarCineComponent },
-  
+
+  { path: 'generos', component: IndiceGenerosComponent },
+  { path: 'generos/crear', component: CrearGeneroComponent },
+  { path: 'generos/editar/:id', component: EditarGeneroComponent },
+
   { path: 'peliculas/crear', component: CrearPeliculaComponent },
   { path: 'peliculas/editar/:id', component: EditarPeliculaComponent },
+
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
