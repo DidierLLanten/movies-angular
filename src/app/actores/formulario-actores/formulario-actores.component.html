@@ -1,0 +1,23 @@
+<p>formulario-actores works!</p>
+
+<form (submit)="onSubmit()" [formGroup]="formActores">
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input formControlName="nombre" matInput />
+    <mat-error *ngIf="formActores.invalid">{{obtenerErrorCampoNombre()}}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Fecha de nacimiento</mat-label>
+    <input formControlName="fechaNacimiento" matInput [matDatepicker]="pickerDate" />
+    <mat-datepicker-toggle matSuffix [for]="pickerDate" ></mat-datepicker-toggle>
+    <mat-datepicker #pickerDate></mat-datepicker>
+    <mat-error *ngIf="formActores.invalid">{{getErrorInputDate()}}</mat-error>
+  </mat-form-field>
+
+  <div>
+    <button mat-flat-button color="primary" [disabled]="formActores.invalid">
+      Guardar cambios
+    </button>
+    <a mat-stroked-button routerLink="/actores">Cancelar</a>
+  </div>
+</form>

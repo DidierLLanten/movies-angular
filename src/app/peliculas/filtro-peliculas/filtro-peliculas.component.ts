@@ -129,7 +129,7 @@ export class FiltroPeliculasComponent implements OnInit {
       queryStrings.push(`titulo=${valoresFormulario.titulo}`);
     }
 
-    if (valoresFormulario.generoId !== 0) {
+    if (valoresFormulario.generoId > 0) {
       queryStrings.push(`generoId=${valoresFormulario.generoId}`);
     }
 
@@ -172,5 +172,6 @@ export class FiltroPeliculasComponent implements OnInit {
 
   limpiar(): void {
     this.form.reset();
+    // this.form.patchValue(this.formularioOriginal);
   }
 }
