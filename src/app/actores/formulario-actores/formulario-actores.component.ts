@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { actorCreacionDTO } from '../actor';
+import { actorCreacionDTO, actorDTO } from '../actor';
 
 @Component({
   selector: 'app-formulario-actores',
@@ -16,7 +16,7 @@ export class FormularioActoresComponent implements OnInit {
   submit: EventEmitter<actorCreacionDTO> = new EventEmitter<actorCreacionDTO>();
 
   @Input()
-  modeloActor: actorCreacionDTO;
+  modeloActor: actorDTO;
 
   ngOnInit(): void {
     this.formActores = this.formBuilder.group({
@@ -32,6 +32,7 @@ export class FormularioActoresComponent implements OnInit {
           validators: [Validators.required],
         },
       ],
+      foto: '',
     });
 
     if (this.modeloActor !== undefined) {
@@ -41,6 +42,10 @@ export class FormularioActoresComponent implements OnInit {
 
   onSubmit() {
     this.submit.emit(this.formActores.value);
+  }
+
+  archivoSeleccionado(file) {
+    this.formActores.get('foto').setValue(file);
   }
 
   obtenerErrorCampoNombre() {
