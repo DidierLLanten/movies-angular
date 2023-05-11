@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { actorCreacionDTO, actorDTO } from 'src/app/actores/actor';
 import { cineCreacionDTO } from '../cine';
+import { Coordenada } from 'src/app/utilidades/mapa/coordenada';
 
 @Component({
   selector: 'app-formulario-cine',
@@ -20,6 +21,8 @@ export class FormularioCineComponent implements OnInit {
   @Input()
   modeloCine: cineCreacionDTO;
 
+  coordenadaInicial: Coordenada[] = [];
+
   ngOnInit(): void {
     this.formCine = this.formBuilder.group({
       nombre: [
@@ -28,11 +31,31 @@ export class FormularioCineComponent implements OnInit {
           validators: [Validators.required, Validators.minLength(3)],
         },
       ],
+      latitud: [
+        '',
+        {
+          validators: [Validators.required],
+        },
+      ],
+      longitud: [
+        '',
+        {
+          validators: [Validators.required],
+        },
+      ],
     });
 
     if (this.modeloCine !== undefined) {
       this.formCine.patchValue(this.modeloCine);
+      this.coordenadaInicial.push({
+        latitud: this.modeloCine.latitud,
+        longitud: this.modeloCine.longitud,
+      });
     }
+  }
+
+  coordenadaSeleccionada(coordenada: Coordenada) {
+    this.formCine.patchValue(coordenada);
   }
 
   onSubmit() {

@@ -12,6 +12,8 @@ export class EditarCineComponent {
 
   modeloCineCargado: cineDTO = {
     nombre: 'CineMark',
+    latitud: 4.546653363908692,
+    longitud: -75.6734848018585,
   };
 
   ngOnInit(): void {
