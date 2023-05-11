@@ -32,6 +32,7 @@ import { InputImgComponent } from './utilidades/input-img/input-img.component';
 import { InputMarkdownComponent } from './utilidades/input-markdown/input-markdown.component';
 import { FormularioCineComponent } from './cines/formulario-cine/formulario-cine.component';
 import { MapaComponent } from './utilidades/mapa/mapa.component';
+import { FormularioPeliculaComponent } from './peliculas/formulario-pelicula/formulario-pelicula.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { MapaComponent } from './utilidades/mapa/mapa.component';
     InputMarkdownComponent,
     FormularioCineComponent,
     MapaComponent,
+    FormularioPeliculaComponent,
   ],
   imports: [
     BrowserModule,
