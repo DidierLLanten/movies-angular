@@ -11,14 +11,15 @@ export class InputMarkdownComponent implements OnInit {
   @Input()
   placeHolderTextArea: string = 'Texto'
 
+  @Input()
+  contenidoMarkdown = '';  
+
   @Output()
   textoMarkDown: EventEmitter<string> = new EventEmitter<string>();
 
-  contenidoMarkdown = '';  
 
   inputTextArea(texto: string) {
-    console.log('Texto: ', texto);
-    this.contenidoMarkdown = texto;
+    console.log('Texto: ', texto);    
     this.textoMarkDown.emit(texto);
   }
 }

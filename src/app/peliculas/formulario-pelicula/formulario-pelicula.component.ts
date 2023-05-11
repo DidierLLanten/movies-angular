@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PeliculaCreacionDTO } from '../pelicula';
+import { PeliculaCreacionDTO, PeliculaDTO } from '../pelicula';
 
 @Component({
   selector: 'app-formulario-pelicula',
@@ -12,7 +12,7 @@ export class FormularioPeliculaComponent implements OnInit {
   formPelicula: FormGroup;
 
   @Input()
-  cargarModeloPelicula: any;
+  cargarModeloPelicula: PeliculaDTO;
 
   @Output()
   datosFormPelicula: EventEmitter<PeliculaCreacionDTO> =
@@ -30,7 +30,16 @@ export class FormularioPeliculaComponent implements OnInit {
 
     if (this.cargarModeloPelicula !== undefined) {
       this.formPelicula.patchValue(this.cargarModeloPelicula);
+      console.log('Pelicula cargada', this.cargarModeloPelicula);
     }
+  }
+
+  archivoSeleccionado(archivo: File) {
+    this.formPelicula.get('poster').setValue(archivo);
+  }
+
+  resumenPelicula(texto: string) {
+    this.formPelicula.get('resumen').setValue(texto);
   }
 
   guardarCambios() {
