@@ -44,6 +44,12 @@
     [seleccionados]="generosSeleccionados"
   ></app-selector-multiple>
 
+  <h4>Seleccione los cines</h4>
+  <app-selector-multiple
+    [noSeleccionados]="cinesNoSeleccionados"
+    [seleccionados]="cinesSeleccionados"
+  ></app-selector-multiple>
+
   <div>
     <button mat-flat-button color="primary" [disabled]="formPelicula.invalid">
       Guardar cambios

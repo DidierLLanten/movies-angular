@@ -36,6 +36,7 @@ export class FormularioPeliculaComponent implements OnInit {
       fechaLanzamiento: '',
       poster: '',
       generosId: '',
+      cinesId: '',
     });
 
     if (this.cargarModeloPelicula !== undefined) {
@@ -43,6 +44,14 @@ export class FormularioPeliculaComponent implements OnInit {
       console.log('Pelicula cargada', this.cargarModeloPelicula);
     }
   }
+
+  cinesNoSeleccionados: MultipleSelectorModel[] = [
+    { llave: 1, valor: 'CineColombia' },
+    { llave: 2, valor: 'CineMark' },
+    { llave: 3, valor: 'RoyalFilms' },
+  ];
+
+  cinesSeleccionados: MultipleSelectorModel[] = [];
 
   archivoSeleccionado(archivo: File) {
     this.formPelicula.get('poster').setValue(archivo);
@@ -53,9 +62,11 @@ export class FormularioPeliculaComponent implements OnInit {
   }
 
   guardarCambios() {
-    console.log('Generos Seleccionados',this.generosSeleccionados);
+    console.log('Generos Seleccionados', this.generosSeleccionados);
     const generosIds = this.generosSeleccionados.map((val) => val.llave);
     this.formPelicula.get('generosId').setValue(generosIds);
+    const cinesIds = this.cinesSeleccionados.map((val) => val.llave);
+    this.formPelicula.get('cinesId').setValue(cinesIds);
     this.datosFormPelicula.emit(this.formPelicula.value);
   }
 }
