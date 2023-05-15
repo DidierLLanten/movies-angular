@@ -26,10 +26,23 @@
   </mat-form-field>
 
   <h4>Seleccionar Poster</h4>
-  <app-input-img (archivoSeleccionado)="archivoSeleccionado($event)" [urlImagenActual]="cargarModeloPelicula?.poster"></app-input-img>
+  <app-input-img
+    (archivoSeleccionado)="archivoSeleccionado($event)"
+    [urlImagenActual]="cargarModeloPelicula?.poster"
+  ></app-input-img>
 
   <h4>Resumen de la Pelicula</h4>
-  <app-input-markdown (textoMarkDown)="resumenPelicula($event)" [placeHolderTextArea]="'Resumen'" [contenidoMarkdown]="cargarModeloPelicula?.resumen"></app-input-markdown>
+  <app-input-markdown
+    (textoMarkDown)="resumenPelicula($event)"
+    [placeHolderTextArea]="'Resumen'"
+    [contenidoMarkdown]="cargarModeloPelicula?.resumen"
+  ></app-input-markdown>
+
+  <h4>Seleccione los generos</h4>
+  <app-selector-multiple
+    [noSeleccionados]="generosNoSeleccionados"
+    [seleccionados]="generosSeleccionados"
+  ></app-selector-multiple>
 
   <div>
     <button mat-flat-button color="primary" [disabled]="formPelicula.invalid">
