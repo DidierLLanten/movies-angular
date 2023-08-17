@@ -30,7 +30,26 @@
             color="primary"
             >Editar</a
           >
-          <button mat-flat-button color="warn">Borrar</button>
+          <button
+            mat-flat-button
+            color="warn"
+            [swal]="{
+              icon: 'warning',
+              iconColor: '#f44336',          
+              title: 'Confirmacion',
+              text: '¿Esta seguro que desea borrar el registro?',
+              confirmButtonText: 'Si',
+              confirmButtonColor: '#f44336',
+              showCancelButton: true,
+              cancelButtonText: 'No',
+              cancelButtonColor: '#3f51b5',
+              focusCancel: true,
+              reverseButtons: true,
+            }"
+            (confirm)="borrar(element.id)"
+          >
+            Borrar
+          </button>
         </td>
       </ng-container>
 

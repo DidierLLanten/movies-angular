@@ -42,4 +42,13 @@ export class IndiceGenerosComponent implements OnInit {
     this.cantidadRegistrosMostrar = datos.pageSize;
     this.cargarRegistros(this.paginaActual, this.cantidadRegistrosMostrar);
   }
+
+  borrar(id: number) {
+    this.generosService.borrar(id).subscribe(
+      () => {
+        this.cargarRegistros(this.paginaActual, this.cantidadRegistrosMostrar);
+      },
+      (error) => console.error(error)
+    );
+  }
 }
