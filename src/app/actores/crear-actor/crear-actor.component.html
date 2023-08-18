@@ -1,4 +1,7 @@
 <h2>Crear Actor</h2>
 
 <!-- <app-formulario-actores (onSubmit)="guardarActor($event)"></app-formulario-actores> -->
-<app-formulario-actores (OnSubmit)="guardarActor($event)"></app-formulario-actores>
+<app-formulario-actores
+  [errores]="errores"
+  (OnSubmit)="guardarActor($event)"
+></app-formulario-actores>
