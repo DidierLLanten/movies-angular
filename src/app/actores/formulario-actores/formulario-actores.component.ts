@@ -21,6 +21,8 @@ export class FormularioActoresComponent implements OnInit {
   @Input()
   errores: string[] = [];
 
+  imagenCambiada = false;
+
   ngOnInit(): void {
     this.formActores = this.formBuilder.group({
       nombre: [
@@ -45,6 +47,9 @@ export class FormularioActoresComponent implements OnInit {
   }
 
   onSubmit() {
+    if(!this.imagenCambiada){
+      this.formActores.patchValue({'foto': null});
+    }
     this.OnSubmit.emit(this.formActores.value);
   }
 
@@ -53,6 +58,7 @@ export class FormularioActoresComponent implements OnInit {
   }
 
   archivoSeleccionado(file) {
+    this.imagenCambiada = true;
     this.formActores.get('foto').setValue(file);
   }
 

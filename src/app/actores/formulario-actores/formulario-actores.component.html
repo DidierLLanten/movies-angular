@@ -4,18 +4,31 @@
   <mat-form-field appearance="outline">
     <mat-label>Nombre</mat-label>
     <input formControlName="nombre" matInput />
-    <mat-error *ngIf="formActores.invalid">{{obtenerErrorCampoNombre()}}</mat-error>
+    <mat-error *ngIf="formActores.invalid">{{
+      obtenerErrorCampoNombre()
+    }}</mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Fecha de nacimiento</mat-label>
-    <input formControlName="fechaNacimiento" matInput [matDatepicker]="pickerDate" />
-    <mat-datepicker-toggle matSuffix [for]="pickerDate" ></mat-datepicker-toggle>
+    <input
+      formControlName="fechaNacimiento"
+      matInput
+      [matDatepicker]="pickerDate"
+    />
+    <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
     <mat-datepicker #pickerDate></mat-datepicker>
-    <mat-error *ngIf="formActores.invalid">{{getErrorInputDate()}}</mat-error>
+    <mat-error *ngIf="formActores.invalid">{{ getErrorInputDate() }}</mat-error>
   </mat-form-field>
 
-  <app-input-img [urlImagenActual]="modeloActor?.foto" (archivoSeleccionado)="archivoSeleccionado($event)"></app-input-img>
-  <app-input-markdown (textoMarkDown)="cambioMarkDown($event)" placeHolderTextArea="Biografia"></app-input-markdown>
+  <app-input-img
+    [urlImagenActual]="modeloActor?.foto"
+    (archivoSeleccionado)="archivoSeleccionado($event)"
+  ></app-input-img>
+  <app-input-markdown
+    [contenidoMarkdown]="modeloActor?.biografia"
+    (textoMarkDown)="cambioMarkDown($event)"
+    placeHolderTextArea="Biografia"
+  ></app-input-markdown>
 
   <div>
     <button mat-flat-button color="primary" [disabled]="formActores.invalid">

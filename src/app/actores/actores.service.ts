@@ -13,11 +13,24 @@ export class ActoresService {
 
   private apiURL = environment.apiURL + 'actores';
 
-  public obtenerTodos(pagina: number, cantidadRegistrosMostrar: number): Observable<any> {
+  public obtenerTodos(
+    pagina: number,
+    cantidadRegistrosMostrar: number
+  ): Observable<any> {
     let params = new HttpParams();
     params = params.append('pagina', pagina.toString());
-    params = params.append('recordsPorPagina', cantidadRegistrosMostrar.toString());
-    return this.http.get<actorDTO[]>(this.apiURL, { observe: 'response', params });
+    params = params.append(
+      'recordsPorPagina',
+      cantidadRegistrosMostrar.toString()
+    );
+    return this.http.get<actorDTO[]>(this.apiURL, {
+      observe: 'response',
+      params,
+    });
+  }
+
+  public obtenerPorId(id: number): Observable<actorDTO> {
+    return this.http.get<actorDTO>(`${this.apiURL}/${id}`);
   }
 
   public crear(actor: actorCreacionDTO) {
@@ -28,7 +41,7 @@ export class ActoresService {
   private construirFormData(actor: actorCreacionDTO): FormData {
     const formData = new FormData();
     formData.append('nombre', actor.nombre);
-    formData.append('biografia', actor.nombre);
+    formData.append('biografia', actor.biografia);
     if (actor.fechaNacimiento) {
       formData.append('fechaNacimiento', formatearFecha(actor.fechaNacimiento));
     }
@@ -39,13 +52,10 @@ export class ActoresService {
     return formData;
   }
 
-  // public obtenerPorId(id: number): Observable<actorDTO>{
-  //   return this.http.get<actorDTO>(`${this.apiURL}/${id}`)
-  // }
-
-  // public editar(id: number, actor: actorCreacionDTO){
-  //   return this.http.put(`${this.apiURL}/${id}`, actor);
-  // }
+  public editar(id: number, actor: actorCreacionDTO) {
+    const formData = this.construirFormData(actor);
+    return this.http.put(`${this.apiURL}/${id}`, formData);
+  }
 
   public borrar(id: number) {
     return this.http.delete(`${this.apiURL}/${id}`);
