@@ -21,6 +21,9 @@ export class FormularioCineComponent implements OnInit {
   @Input()
   modeloCine: cineCreacionDTO;
 
+  @Input()
+  errores: string[] = [];
+
   coordenadaInicial: Coordenada[] = [];
 
   ngOnInit(): void {

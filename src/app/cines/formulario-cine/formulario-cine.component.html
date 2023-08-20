@@ -1,3 +1,5 @@
+<app-mostrar-errores [errores]="errores"></app-mostrar-errores>
+
 <form (submit)="onSubmit()" [formGroup]="formCine">
   <mat-form-field appearance="outline">
     <mat-label>Nombre</mat-label>
@@ -9,7 +11,9 @@
 
   <div>
     <app-mapa
-      (coordenadaSeleccionada)="coordenadaSeleccionada($event)" [coordenadasIniciales]="coordenadaInicial">
+      (coordenadaSeleccionada)="coordenadaSeleccionada($event)"
+      [coordenadasIniciales]="coordenadaInicial"
+    >
     </app-mapa>
   </div>
 
