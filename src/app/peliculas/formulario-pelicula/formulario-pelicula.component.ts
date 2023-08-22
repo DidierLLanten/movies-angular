@@ -19,13 +19,15 @@ export class FormularioPeliculaComponent implements OnInit {
   datosFormPelicula: EventEmitter<PeliculaCreacionDTO> =
     new EventEmitter<PeliculaCreacionDTO>();
 
-  generosNoSeleccionados: MultipleSelectorModel[] = [
-    { llave: 1, valor: 'Drama' },
-    { llave: 2, valor: 'Accion' },
-    { llave: 3, valor: 'Comedia' },
-  ];
+  @Input()
+  generosNoSeleccionados: MultipleSelectorModel[] = [];
 
   generosSeleccionados: MultipleSelectorModel[] = [];
+
+  @Input()
+  cinesNoSeleccionados: MultipleSelectorModel[] = [];
+
+  cinesSeleccionados: MultipleSelectorModel[] = [];
 
   ngOnInit(): void {
     this.formPelicula = this.formBuilder.group({
@@ -44,14 +46,6 @@ export class FormularioPeliculaComponent implements OnInit {
       console.log('Pelicula cargada', this.cargarModeloPelicula);
     }
   }
-
-  cinesNoSeleccionados: MultipleSelectorModel[] = [
-    { llave: 1, valor: 'CineColombia' },
-    { llave: 2, valor: 'CineMark' },
-    { llave: 3, valor: 'RoyalFilms' },
-  ];
-
-  cinesSeleccionados: MultipleSelectorModel[] = [];
 
   archivoSeleccionado(archivo: File) {
     this.formPelicula.get('poster').setValue(archivo);
