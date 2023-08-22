@@ -5,6 +5,7 @@ import { MatAutocompleteActivatedEvent } from '@angular/material/autocomplete';
 import { MatTable } from '@angular/material/table';
 import { actorPeliculaDTO } from '../actor';
 import { ActoresService } from '../actores.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-autocomplete-actores',
@@ -25,11 +26,16 @@ export class AutocompleteActoresComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
 
   ngOnInit(): void {
+    this.cargarRegistros(1, 20);
+
     this.control.valueChanges.subscribe((nombre) => {
       if (typeof nombre === 'string') {
         this.actoresService.obtenerPorNombre(nombre).subscribe(
           (actores) => {
             this.actoresAMostrar = actores;
+            if (nombre === '') {
+              this.cargarRegistros(1, 20);
+            }
           },
           (error) => {
             console.error('Error en autocompleteOnInit: ', error);
@@ -37,6 +43,20 @@ export class AutocompleteActoresComponent implements OnInit {
         );
       }
     });
+  }
+
+  cargarRegistros(pagina: number, cantidadElementosMostrar: number) {
+    this.actoresService
+      .obtenerTodos(pagina, cantidadElementosMostrar)
+      .subscribe({
+        next: (actoresAMostrar: HttpResponse<actorPeliculaDTO[]>) => {
+          this.actoresAMostrar = actoresAMostrar.body;
+        },
+        error: (error) => console.error('Error obtener actores: ', error),
+        complete: () => {
+          // Se ha completado la suscripción
+        },
+      });
   }
 
   optionSelected(event: MatAutocompleteActivatedEvent) {
