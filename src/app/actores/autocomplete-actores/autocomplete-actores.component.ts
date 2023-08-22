@@ -1,8 +1,10 @@
 import { CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteActivatedEvent } from '@angular/material/autocomplete';
 import { MatTable } from '@angular/material/table';
+import { actorPeliculaDTO } from '../actor';
+import { ActoresService } from '../actores.service';
 
 @Component({
   selector: 'app-autocomplete-actores',
@@ -10,47 +12,37 @@ import { MatTable } from '@angular/material/table';
   styleUrls: ['./autocomplete-actores.component.css'],
 })
 export class AutocompleteActoresComponent implements OnInit {
+  constructor(private actoresService: ActoresService) {}
   control: FormControl = new FormControl();
+
+  @Input()
+  actoresSeleccionados: actorPeliculaDTO[] = [];
+
+  actoresAMostrar: actorPeliculaDTO[] = [];
+
+  columnasAMostrar = ['imagen', 'nombre', 'personaje', 'acciones'];
 
   @ViewChild(MatTable) table: MatTable<any>;
 
   ngOnInit(): void {
-    this.control.valueChanges.subscribe((valor) => {
-      this.actores = this.actoresOriginal;
-      this.actores = this.actores.filter(
-        (actor) => actor.nombre.indexOf(valor) !== -1
-      );
+    this.control.valueChanges.subscribe((nombre) => {
+      console.log('Nombre NOOO: ', typeof nombre);
+
+      if (nombre != '') {
+        // console.log('Entro al ngOnInit: ', nombre);
+        console.log('Nombre existe: ', nombre);
+
+        this.actoresService.obtenerPorNombre(nombre).subscribe(
+          (actores) => {
+            this.actoresAMostrar = actores;
+          },
+          (error) => {
+            console.log('Error en autocompleteOnInit: ', error);
+          }
+        );
+      }
     });
   }
-
-  actores = [
-    {
-      nombre: 'Al Pacino',
-      personaje: '',
-      foto: 'https://images.mubicdn.net/images/cast_member/4189/cache-5292-1614585191/image-w856.jpg?size=800x',
-    },
-    {
-      nombre: 'Robert Downey',
-      personaje: '',
-      foto: 'https://www.californiamuseum.org/sites/main/files/imagecache/lightbox/main-images/robertdowneyjr_cahalloffameinductee.png',
-    },
-    {
-      nombre: 'Brad Pitt',
-      personaje: '',
-      foto: 'https://images.mubicdn.net/images/cast_member/2552/cache-207-1524922850/image-w856.jpg?size=800x',
-    },
-    {
-      nombre: 'Scarlett Johansson',
-      personaje: '',
-      foto: 'https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_FMjpg_UX1000_.jpg',
-    },
-  ];
-
-  actoresOriginal = this.actores;
-
-  actoresSeleccionados = [];
-
-  columnasAMostrar = ['imagen', 'nombre', 'personaje', 'acciones'];
 
   optionSelected(event: MatAutocompleteActivatedEvent) {
     console.log(event.option.value);
