@@ -26,18 +26,13 @@ export class AutocompleteActoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.control.valueChanges.subscribe((nombre) => {
-      console.log('Nombre NOOO: ', typeof nombre);
-
-      if (nombre != '') {
-        // console.log('Entro al ngOnInit: ', nombre);
-        console.log('Nombre existe: ', nombre);
-
+      if (typeof nombre === 'string') {
         this.actoresService.obtenerPorNombre(nombre).subscribe(
           (actores) => {
             this.actoresAMostrar = actores;
           },
           (error) => {
-            console.log('Error en autocompleteOnInit: ', error);
+            console.error('Error en autocompleteOnInit: ', error);
           }
         );
       }
@@ -45,7 +40,7 @@ export class AutocompleteActoresComponent implements OnInit {
   }
 
   optionSelected(event: MatAutocompleteActivatedEvent) {
-    console.log(event.option.value);
+    console.log('Actor seleccionado: ', event.option.value);
     this.actoresSeleccionados.push(event.option.value);
     this.control.patchValue('');
     if (this.table !== undefined) {
