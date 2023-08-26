@@ -2,7 +2,7 @@
   <div>
     <h2>{{ pelicula.titulo }}({{ fechaLanzamiento.getFullYear() }})</h2>
 
-    <mat-chip-list>
+    <mat-chip-set>
       <mat-chip
         [routerLink]="['/peliculas/buscar']"
         [queryParams]="{ generoId: genero.id }"
@@ -10,7 +10,7 @@
       >
         {{ genero.nombre }}
       </mat-chip>
-    </mat-chip-list>
+    </mat-chip-set>
     | {{ fechaLanzamiento.toDateString() }} | Promedio: 0.0 | Tu voto: 0.0
 
     <div style="display: flex">
@@ -49,5 +49,17 @@
       </div>
     </div>
   </div>
+
+  <div
+    style="padding-left: 1rem; position: relative; width: 100%"
+    *ngIf="coordenadas.length > 0"
+  >
+    <h2>Proyectandose en los siguientes cines</h2>
+    <app-mapa
+      [coordenadasIniciales]="coordenadas"
+      [soloLectura]="true"
+    ></app-mapa>
+  </div>
 </div>
+
 <mat-spinner *ngIf="!pelicula"></mat-spinner>

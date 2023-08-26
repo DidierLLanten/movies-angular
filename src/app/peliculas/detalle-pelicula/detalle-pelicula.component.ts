@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PeliculaDTO } from '../pelicula';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CoordenadaConMensaje } from 'src/app/utilidades/mapa/coordenada';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-detalle-pelicula',
@@ -20,7 +21,7 @@ export class DetallePeliculaComponent implements OnInit {
   pelicula: PeliculaDTO;
   fechaLanzamiento: Date;
   trailerURL: SafeResourceUrl;
-  coordenadas: CoordenadaConMensaje[];
+  coordenadas: CoordenadaConMensaje[] = [];
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -30,8 +31,9 @@ export class DetallePeliculaComponent implements OnInit {
         this.fechaLanzamiento = new Date(this.pelicula.fechaLanzamiento);
         this.trailerURL = this.generarURLYoutubeEmbed(this.pelicula.trailer);
         this.coordenadas = pelicula.cines.map((cine) => {
+          console.log(cine)
           return {
-            longitud: cine.latitud,
+            longitud: cine.longitud,
             latitud: cine.latitud,
             mensaje: cine.nombre,
           };

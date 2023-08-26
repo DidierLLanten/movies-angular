@@ -7,7 +7,7 @@ import {
   marker,
   icon,
 } from 'leaflet';
-import { Coordenada } from './coordenada';
+import { Coordenada, CoordenadaConMensaje } from './coordenada';
 
 @Component({
   selector: 'app-mapa',
@@ -16,15 +16,18 @@ import { Coordenada } from './coordenada';
 })
 export class MapaComponent implements OnInit {
   @Input()
-  coordenadasIniciales: Coordenada[] = [];
+  coordenadasIniciales: CoordenadaConMensaje[] = [];
+
+  @Input()
+  soloLectura: boolean = false;
 
   @Output()
   coordenadaSeleccionada: EventEmitter<Coordenada> =
     new EventEmitter<Coordenada>();
 
   ngOnInit(): void {
-    this.capas = this.coordenadasIniciales.map((coordenada) =>
-      marker([coordenada.latitud, coordenada.longitud], {
+    this.capas = this.coordenadasIniciales.map((coordenada) => {
+      let marcador = marker([coordenada.latitud, coordenada.longitud], {
         icon: icon({
           iconSize: [25, 41],
           iconAnchor: [13, 41],
@@ -32,8 +35,15 @@ export class MapaComponent implements OnInit {
           iconRetinaUrl: 'marker-icon-2x.png',
           shadowUrl: 'assets/marker-shadow.png',
         }),
-      })
-    );
+      });
+
+      if(coordenada.mensaje){
+        marcador.bindPopup(coordenada.mensaje, {autoClose: false, autoPan: false})
+
+      }
+
+      return marcador;
+    });
   }
 
   options = {
@@ -50,21 +60,26 @@ export class MapaComponent implements OnInit {
   capas: Marker<any>[] = [];
 
   handleClick(event: LeafletMouseEvent) {
-    const latitud = event.latlng.lat;
-    const longitud = event.latlng.lng;
+    if (!this.soloLectura) {
+      const latitud = event.latlng.lat;
+      const longitud = event.latlng.lng;
 
-    this.capas = [];
-    this.capas.push(
-      marker([latitud, longitud], {
-        icon: icon({
-          iconSize: [25, 41],
-          iconAnchor: [13, 41],
-          iconUrl: 'marker-icon.png',
-          iconRetinaUrl: 'marker-icon-2x.png',
-          shadowUrl: 'assets/marker-shadow.png',
-        }),
-      })
-    );
-    this.coordenadaSeleccionada.emit({ latitud: latitud, longitud: longitud });
+      this.capas = [];
+      this.capas.push(
+        marker([latitud, longitud], {
+          icon: icon({
+            iconSize: [25, 41],
+            iconAnchor: [13, 41],
+            iconUrl: 'marker-icon.png',
+            iconRetinaUrl: 'marker-icon-2x.png',
+            shadowUrl: 'assets/marker-shadow.png',
+          }),
+        })
+      );
+      this.coordenadaSeleccionada.emit({
+        latitud: latitud,
+        longitud: longitud,
+      });
+    }
   }
 }
