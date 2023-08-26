@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { PeliculaDTO } from '../pelicula';
 
 @Component({
   selector: 'app-listado-peliculas',
@@ -8,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ListadoPeliculasComponent implements OnInit {
   constructor() {}
   @Input()
-  peliculas: any[];
+  peliculas: PeliculaDTO[];
 
   ngOnInit(): void {
     // setTimeout(() => {

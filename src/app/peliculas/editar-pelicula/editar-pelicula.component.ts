@@ -11,6 +11,7 @@ export class EditarPeliculaComponent {
   constructor(private activedRoute: ActivatedRoute, private router: Router) {}
 
   modeloPeliculaCargada: PeliculaDTO = {
+    id: 13,
     titulo: 'Creed',
     resumen: '# Creed One\n\nBoxeador hijo del maximo rival de **Rocky Balboa**',
     enCines: true,
