@@ -7,6 +7,7 @@ import {
   PeliculaCreacionDTO,
   PeliculaDTO,
   PeliculaPostGet,
+  PeliculaPutGet,
 } from './pelicula';
 import { formatearFecha } from '../utilidades/utilidades';
 
@@ -29,9 +30,19 @@ export class PeliculasService {
     return this.http.get<PeliculaPostGet>(`${this.apiURL}/postget`);
   }
 
+  public putGet(id: number): Observable<PeliculaPutGet> {
+    return this.http.get<PeliculaPutGet>(`${this.apiURL}/putget/${id}`);
+  }
+
   public crear(pelicula: PeliculaCreacionDTO) {
     const formData = this.ConstruirFormData(pelicula);
     return this.http.post(this.apiURL, formData);
+  }
+
+  public editar(id: number, pelicula: PeliculaCreacionDTO) {
+    const formData = this.ConstruirFormData(pelicula);
+    // return this.http.put(this.apiURL + `/${id}`, formData);
+    return this.http.put(`${this.apiURL}/${id}`, formData);
   }
 
   private ConstruirFormData(pelicula: PeliculaCreacionDTO): FormData {

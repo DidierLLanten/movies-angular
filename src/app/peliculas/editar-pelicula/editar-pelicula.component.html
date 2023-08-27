@@ -1,3 +1,14 @@
 <h2>Editar pelicula</h2>
 
-<app-formulario-pelicula [cargarModeloPelicula]="modeloPeliculaCargada" (datosFormPelicula)="modificarPelicula($event)"></app-formulario-pelicula>
+<app-formulario-pelicula
+  [generosNoSeleccionados]="generosNoSeleccionados"
+  [generosSeleccionados]="generosSeleccionados"
+  [cinesNoSeleccionados]="cinesNoSeleccionados"
+  [cinesSeleccionados]="cinesSeleccionados"
+  [actoresSeleccionados]="actoresSeleccionados"
+  *ngIf="modeloPeliculaCargada"
+  [cargarModeloPelicula]="modeloPeliculaCargada"
+  (datosFormPelicula)="modificarPelicula($event)"
+></app-formulario-pelicula>
+
+<mat-spinner *ngIf="!modeloPeliculaCargada"></mat-spinner>
