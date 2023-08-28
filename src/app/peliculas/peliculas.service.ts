@@ -34,9 +34,9 @@ export class PeliculasService {
     return this.http.get<PeliculaPutGet>(`${this.apiURL}/putget/${id}`);
   }
 
-  public crear(pelicula: PeliculaCreacionDTO) {
+  public crear(pelicula: PeliculaCreacionDTO): Observable<number>{
     const formData = this.ConstruirFormData(pelicula);
-    return this.http.post(this.apiURL, formData);
+    return this.http.post<number>(this.apiURL, formData);
   }
 
   public editar(id: number, pelicula: PeliculaCreacionDTO) {
