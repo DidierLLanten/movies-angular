@@ -1,4 +1,3 @@
-<p>listado-peliculas works!</p>
 <app-listado-generico
   [listado]="peliculas"
   [listadoVacio]="'No hay peliculas para mostrar'"
@@ -28,7 +27,27 @@
           >
             Editar
           </a>
-          <button mat-flat-button color="warn" type="button">Borrar</button>
+          <button
+            mat-flat-button
+            color="warn"
+            type="button"
+            [swal]="{
+            icon: 'warning',
+            iconColor: '#f44336',          
+            title: 'Confirmacion',
+            text: '¿Esta seguro que desea borrar el registro?',
+            confirmButtonText: 'Si',
+            confirmButtonColor: '#f44336',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            cancelButtonColor: '#3f51b5',
+            focusCancel: true,
+            reverseButtons: true,
+          }"
+            (confirm)="borrar(pelicula.id)"
+          >
+            Borrar
+          </button>
         </div>
         <!-- <div>
           <h2>

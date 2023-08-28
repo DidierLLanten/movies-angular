@@ -53,6 +53,10 @@ export class PeliculasService {
     return this.http.put(`${this.apiURL}/${id}`, formData);
   }
 
+  public borrar(id: number) {
+    return this.http.delete(`${this.apiURL}/${id}`);
+  }
+
   private ConstruirFormData(pelicula: PeliculaCreacionDTO): FormData {
     const formData = new FormData();
 

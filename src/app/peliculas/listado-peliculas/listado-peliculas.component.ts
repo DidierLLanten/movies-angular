@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PeliculaDTO } from '../pelicula';
+import { PeliculasService } from '../peliculas.service';
 
 @Component({
   selector: 'app-listado-peliculas',
@@ -7,44 +8,17 @@ import { PeliculaDTO } from '../pelicula';
   styleUrls: ['./listado-peliculas.component.css'],
 })
 export class ListadoPeliculasComponent implements OnInit {
-  constructor() {}
+  constructor(private peliculasService: PeliculasService) {}
   @Input()
   peliculas: PeliculaDTO[];
 
-  ngOnInit(): void {
-    // setTimeout(() => {
-    //   this.peliculas = [
-    //     {
-    //       titulo: 'Spider-Man',
-    //       fechaLanzamiento: new Date(),
-    //       precioEntrada: 19000,
-    //     },
-    //     {
-    //       titulo: 'Moana',
-    //       fechaLanzamiento: new Date(),
-    //       precioEntrada: 19000,
-    //     },
-    //     {
-    //       titulo: 'John-Wick',
-    //       fechaLanzamiento: new Date(),
-    //       precioEntrada: 19000,
-    //     },
-    //     {
-    //       titulo: 'Cars',
-    //       fechaLanzamiento: new Date(),
-    //       precioEntrada: 19000,
-    //     },
-    //     {
-    //       titulo: 'Mario',
-    //       fechaLanzamiento: new Date(),
-    //       precioEntrada: 19000,
-    //     },
-    //   ];
-    // }, 3000);
-  }
+  @Output()
+  borrado: EventEmitter<void> = new EventEmitter<void>();
 
-  removeMovie(indiceMovie: number) {
-    this.peliculas.splice(indiceMovie, 1);
+  ngOnInit(): void {}
+
+  borrar(peliculaId: number) {
+    this.peliculasService.borrar(peliculaId).subscribe(() => this.borrado.emit());
   }
 
   manejarRated(voto: number): void {
