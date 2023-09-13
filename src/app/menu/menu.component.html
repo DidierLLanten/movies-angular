@@ -35,13 +35,12 @@
   <div class="espacio"></div>
   <app-autorizado>
     <ng-container autorizado>
-      <span>Hola, </span>
-      <a mat-button>Logout</a>
+      <span>Hola, {{ seguridadService.obtenerCampoJWT("Email") }} </span>
+      <a mat-button (click)="seguridadService.logout()">Logout</a>
     </ng-container>
     <ng-container noAutorizado>
       <a mat-button routerLink="login">Login</a>
       <a mat-button routerLink="registro">Registro</a>
-
-    </ng-container>    
+    </ng-container>
   </app-autorizado>
 </mat-toolbar>
