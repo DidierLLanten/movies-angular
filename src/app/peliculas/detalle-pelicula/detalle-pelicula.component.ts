@@ -5,6 +5,8 @@ import { PeliculaDTO } from '../pelicula';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CoordenadaConMensaje } from 'src/app/utilidades/mapa/coordenada';
 import { MatChipsModule } from '@angular/material/chips';
+import { RatingService } from 'src/app/rating/rating.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalle-pelicula',
@@ -15,7 +17,8 @@ export class DetallePeliculaComponent implements OnInit {
   constructor(
     private peliculasService: PeliculasService,
     private activatedRoute: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private ratingService: RatingService
   ) {}
 
   pelicula: PeliculaDTO;
@@ -31,7 +34,7 @@ export class DetallePeliculaComponent implements OnInit {
         this.fechaLanzamiento = new Date(this.pelicula.fechaLanzamiento);
         this.trailerURL = this.generarURLYoutubeEmbed(this.pelicula.trailer);
         this.coordenadas = pelicula.cines.map((cine) => {
-          console.log(cine)
+          console.log(cine);
           return {
             longitud: cine.longitud,
             latitud: cine.latitud,
@@ -39,6 +42,12 @@ export class DetallePeliculaComponent implements OnInit {
           };
         });
       });
+    });
+  }
+
+  rated(puntuacion: number) {
+    this.ratingService.rate(this.pelicula.id, puntuacion).subscribe(() => {
+      Swal.fire('Exitoso', 'Su voto ha sido recibido', 'success');
     });
   }
 
