@@ -19,36 +19,43 @@
         <p>
           <a [routerLink]="'pelicula/' + pelicula.id">{{ pelicula.titulo }}</a>
         </p>
-        <div>
-          <a
-            mat-flat-button
-            color="primary"
-            [routerLink]="'peliculas/editar/' + pelicula.id"
-          >
-            Editar
-          </a>
-          <button
-            mat-flat-button
-            color="warn"
-            type="button"
-            [swal]="{
-            icon: 'warning',
-            iconColor: '#f44336',          
-            title: 'Confirmacion',
-            text: '¿Esta seguro que desea borrar el registro?',
-            confirmButtonText: 'Si',
-            confirmButtonColor: '#f44336',
-            showCancelButton: true,
-            cancelButtonText: 'No',
-            cancelButtonColor: '#3f51b5',
-            focusCancel: true,
-            reverseButtons: true,
-          }"
-            (confirm)="borrar(pelicula.id)"
-          >
-            Borrar
-          </button>
-        </div>
+        <app-autorizado [rol]="'admin'">
+          <ng-container autorizado>
+            <div>
+              <a
+                mat-flat-button
+                color="primary"
+                [routerLink]="'peliculas/editar/' + pelicula.id"
+              >
+                Editar
+              </a>
+              <button
+                mat-flat-button
+                color="warn"
+                type="button"
+                [swal]="{
+                icon: 'warning',
+                iconColor: '#f44336',          
+                title: 'Confirmacion',
+                text: '¿Esta seguro que desea borrar el registro?',
+                confirmButtonText: 'Si',
+                confirmButtonColor: '#f44336',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                cancelButtonColor: '#3f51b5',
+                focusCancel: true,
+                reverseButtons: true,
+              }"
+                (confirm)="borrar(pelicula.id)"
+              >
+                Borrar
+              </button>
+            </div>
+          </ng-container>
+          <ng-container noAutorizado>
+            No estas autenticado
+          </ng-container>  
+        </app-autorizado>
         <!-- <div>
           <h2>
             Pelicula {{ index + +1 }}: {{ pelicula.titulo | uppercase }}
